@@ -1,3 +1,8 @@
+import generateToken from "../utils/generateToken.js";
+import bcrypt from "bcryptjs";
+import User from "../models/user.js";
+import Volunteer from "../models/volunteer.js";
+
 const register = async (req, res) => {
 
     try {
