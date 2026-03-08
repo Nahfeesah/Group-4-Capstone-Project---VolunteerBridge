@@ -1,3 +1,6 @@
+import { DataTypes } from "sequelize";
+import sequelize from "../config/database.js";
+
 const Volunteer = sequelize.define("Volunteer", {
     skills: DataTypes.STRING,
     availability: DataTypes.STRING,
@@ -6,3 +9,4 @@ const Volunteer = sequelize.define("Volunteer", {
         defaultValue: "active",
     },
 });
+export default Volunteer;

@@ -5,14 +5,14 @@ import {
   createProject,
   updateProjectStatus,
 } from "../controllers/project.controller.js";
-import { auth } from "../middleware/auth.js";
+import authMiddleware from "../middleware/auth.js";
 // import role from "../middleware/role.js";
 
 const router = express.Router();
 
-router.get("/", auth, getProjects);
-router.get("/:id", auth, getProjectById);
-router.post("/", auth, createProject);
-router.patch("/:id/status", auth, updateProjectStatus);
+router.get("/", authMiddleware, getProjects);
+router.get("/:id", authMiddleware, getProjectById);
+router.post("/", authMiddleware, createProject);
+router.patch("/:id/status", authMiddleware, updateProjectStatus);
 
 export default router;
