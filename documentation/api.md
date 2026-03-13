@@ -110,34 +110,3 @@ request
 "updatedAt": "2026-03-11T21:04:03.348Z"
 }
 }
-
-## Register Admin
-
-# request
-
-# raw JSON
-
-{
-"name": "Sunday Oluwasegun",
-"email":"sundayo@example.com",
-"password":"12345698@",
-"role": "admin"
-}
-
-# Response
-
-body JSON
-
-{
-"message": "User registered successfully",
-"user": {
-"isActive": true,
-"isVerified": false,
-"role": "volunteer",
-"id": 5,
-"name": "Sunday Oluwasegun",
-"email": "sundayo@example.com",
-"updatedAt": "2026-03-12T13:57:28.618Z",
-"createdAt": "2026-03-12T13:57:28.618Z"
-}
-}
