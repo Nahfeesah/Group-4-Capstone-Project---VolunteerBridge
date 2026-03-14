@@ -463,3 +463,39 @@ raw JSON
 }
 ]
 }
+
+## Update Task Status
+
+# api http://localhost:5000/api/tasks/1/status
+
+# Authorization input bearer token from login
+
+# request
+
+body
+raw JSON
+
+{
+"status":"done"
+}
+
+# Response
+
+{
+"success": true,
+"message": "Task status updated successfully",
+"data": {
+"id": 1,
+"projectId": 1,
+"title": "Food Distribution to less privileged",
+"description": "Handle 5 bags",
+"dueDate": "2026-04-01T00:00:00.000Z",
+"estimatedHours": 5,
+"status": "done",
+"createdBy": 5,
+"assignedTo": 1,
+"createdAt": "2026-03-13T20:59:47.000Z",
+"updatedAt": "2026-03-14T14:28:59.269Z",
+"project_id": 1
+}
+}
