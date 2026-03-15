@@ -1,5 +1,5 @@
-import express from "express";
 import cors from "cors";
+import express from "express";
 import cookieParser from "cookie-parser";
 import configuration from "./src/config/env.js";
 import { corsOptions } from "./src/config/cors.js";
@@ -23,6 +23,7 @@ const PORT = configuration.PORT || 5000;
 
 // Middlewares
 app.use(cors(corsOptions));
+// app.use(cors({ origin: "http://127.0.0.1:5500" }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
