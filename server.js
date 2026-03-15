@@ -13,7 +13,7 @@ import reportRoutes from "./src/routes/reportRoutes.js";
 import authRoutes from "./src/routes/authRoutes.js";
 import errorMiddleware from "./src/middleware/error.js";
 import { sequelize } from "./src/models/index.js"; // Sequelize instance with models
-import donationRoutes from "./routes/donationRoutes.js";
+import donationRoutes from "./src/routes/donationRoutes.js";
 import dotenv from "dotenv";
 
 dotenv.config();
