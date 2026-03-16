@@ -1,5 +1,5 @@
-import express from "express";
 import cors from "cors";
+import express from "express";
 import cookieParser from "cookie-parser";
 import configuration from "./src/config/env.js";
 import { corsOptions } from "./src/config/cors.js";
@@ -13,10 +13,14 @@ import reportRoutes from "./src/routes/reportRoutes.js";
 import authRoutes from "./src/routes/authRoutes.js";
 import errorMiddleware from "./src/middleware/error.js";
 import { sequelize } from "./src/models/index.js"; // Sequelize instance with models
+import donationRoutes from "./src/routes/donationRoutes.js";
+import dotenv from "dotenv";
 
+dotenv.config();
 
 const app = express();
-const PORT = configuration.PORT || 5000;
+// const PORT = configuration.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
 // Middlewares
 app.use(cors(corsOptions));
@@ -41,7 +45,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/reports", reportRoutes);
 app.use("/api/auth", authRoutes);
-
+app.use("/api/donations", donationRoutes);
 // Health check
 app.get("/health", async (req, res) => {
   try {
@@ -67,7 +71,7 @@ app.use((req, res) => {
     await sequelize.sync({ alter: true });
     console.log("All tables synced successfully");
 
-    app.listen(PORT, () => {
+    app.listen(PORT, "0.0.0.0", () => {
       console.log(`Server is running on port ${PORT}`);
     });
   } catch (error) {
