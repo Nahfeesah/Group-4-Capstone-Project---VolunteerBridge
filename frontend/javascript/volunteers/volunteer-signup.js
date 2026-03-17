@@ -1,3 +1,6 @@
+// --- BASE URL (live backend) ---
+const BASE_URL = "https://volunteer-bridge.com.ng/api";
+
 document.addEventListener("DOMContentLoaded", () => {
   // --- PASSWORD TOGGLE ---
   const passwordInput = document.getElementById("password");
@@ -24,7 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
       <span>${message}</span>
       <span class="close-btn">&times;</span>
     `;
-
     container.appendChild(toast);
 
     setTimeout(() => toast.classList.add("show"), 50);
@@ -41,8 +43,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+
+
+  // --- HELPER FUNCTION FOR API CALLS WITH JWT ---
+  async function apiFetch(endpoint, options = {}) {
+    const token = localStorage.getItem("token");
+    const headers = {
+      "Content-Type": "application/json",
+      ...(token && { Authorization: `Bearer ${token}` }),
+    };
+    const res = await fetch(`${BASE_URL}${endpoint}`, { ...options, headers });
+    return res.json();
+  }
+
   // --- FORM SUBMISSION ---
   const form = document.getElementById("volunteer-signup-form");
+  if (!form) return;
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -63,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/register", {
+      const res = await fetch(`${BASE_URL}/auth/signup`, { // <-- live backend
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -72,12 +88,14 @@ document.addEventListener("DOMContentLoaded", () => {
       const data = await res.json();
 
       if (res.ok) {
-        localStorage.setItem("token", data.token);
+        // Store JWT if backend returns one
+        if (data.token) localStorage.setItem("token", data.token);
+
         showToast("Volunteer account created successfully!", "success", 3000);
 
-        // Redirect to login page after short delay
+        // Redirect to volunteer dashboard or login
         setTimeout(() => {
-          window.location.href = "./volunteer-login.html";
+          window.location.href = "./volunteer-dashboard.html";
         }, 1200);
       } else {
         showToast(data.message || "Failed to create account!", "error", 5000);

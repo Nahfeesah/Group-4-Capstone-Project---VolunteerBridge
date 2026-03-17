@@ -42,19 +42,32 @@ body {
   padding: 20px;
 }
 
+
+
 .text-content {
-  margin-bottom: 300px;
+  margin-bottom: 330px;
+  line-height: 0.9;
+  transform: translateY(40px);
+  animation: logoIntro 2.0s ease forwards;
+  transition: transform 0.2s ease;
+}
+
+@keyframes logoIntro {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .text-content h1,
 .text-content p {
+  line-height: 1.2;
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
 }
 
-.welcome {
-  font-size: 28px;
-  font-weight: 600;
-  margin-bottom: 30px;
+.logo {
+  width: 75px;
+  height: 75px;
 }
 
 .title {
@@ -80,6 +93,9 @@ body {
   justify-items: center;
   padding: 1rem;
   margin-top: 45px;
+  transform: translateY(30px);
+  animation: logoIntro 1.5s ease forwards;
+  transition: transform 0.3s ease;
 }
 
 .btn {
@@ -140,5 +156,11 @@ body {
     flex-direction: column;
     gap: 15px;
     margin-top: 90px;
+  }
+
+  .logo {
+    width: 50px;
+    height: 50px;
+    
   }
 }

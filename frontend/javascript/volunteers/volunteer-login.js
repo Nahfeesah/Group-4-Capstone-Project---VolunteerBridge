@@ -1,3 +1,6 @@
+// --- BASE URL (live backend) ---
+const BASE_URL = "https://volunteer-bridge.com.ng/api";
+
 document.addEventListener("DOMContentLoaded", () => {
   // --- PASSWORD TOGGLE ---
   const passwordInput = document.getElementById("password");
@@ -40,12 +43,23 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // --- HELPER FUNCTION FOR API CALLS WITH JWT ---
+  async function apiFetch(endpoint, options = {}) {
+    const token = localStorage.getItem("token");
+    const headers = {
+      "Content-Type": "application/json",
+      ...(token && { Authorization: `Bearer ${token}` })
+    };
+    const res = await fetch(`${BASE_URL}${endpoint}`, { ...options, headers });
+    return res.json();
+  }
+
   // --- LOGIN FORM SUBMISSION ---
   const form = document.getElementById("volunteer-login-form");
-  if (!form) return; // prevent errors if form is missing
+  if (!form) return;
 
   form.addEventListener("submit", async (e) => {
-    e.preventDefault(); // prevent page refresh
+    e.preventDefault();
 
     const email = document.getElementById("email").value.trim();
     const password = passwordInput.value;
@@ -56,10 +70,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/login", {
+      const res = await fetch(`${BASE_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password })
       });
 
       const data = await res.json();
@@ -79,9 +93,11 @@ document.addEventListener("DOMContentLoaded", () => {
             window.location.href = "./index.html";
           }
         }, 1200);
+
       } else {
         showToast(data.message || "Login failed", "error", 5000);
       }
+
     } catch (err) {
       console.error(err);
       showToast("Cannot connect to backend", "error", 5000);
