@@ -240,6 +240,11 @@ main{
         gap: 2px;
     }
 
+    .menu-item span{
+    font-size: 12px;
+    font-weight: 200;
+}
+
     main{
         padding: 20px 15px 80px 15px;
     }
