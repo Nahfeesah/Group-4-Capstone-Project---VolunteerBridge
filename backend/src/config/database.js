@@ -1,17 +1,18 @@
-import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
-import Sequelize from 'sequelize';
+import { Sequelize } from 'sequelize';
 
 dotenv.config();
 
-const sequelize = new Sequelize(
-    process.env.DB_NAME,
-    process.env.DB_USER,
-    process.env.DB_PASSWORD,
-    {
-        host: process.env.DB_HOST,
-        dialect: 'mysql'
-    }
-);
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
+  dialect: 'postgres',
+  protocol: 'postgres',
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false, // very important for Render
+    },
+  },
+  logging: console.log, // optional: shows SQL queries
+});
 
 export default sequelize;
